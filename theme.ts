@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react';
-import { mode } from '@chakra-ui/theme-tools';
 
 const customTheme = extendTheme({
   config: {
@@ -19,44 +18,56 @@ const customTheme = extendTheme({
   },
   components: {
     Text: {
-      baseStyle: (props) => ({
-        color: mode('gray.600', 'gray.200')(props),
+      baseStyle: {
+        color: 'gray.600',
         fontFamily: 'body',
         lineHeight: '1.75',
         transition: 'all 0.3s ease-in-out',
-      }),
+        '.chakra-ui-dark &': {
+          color: 'gray.200',
+        },
+      },
       variants: {
-        navigation: (props) => ({
-          color: mode('gray.800', 'white')(props),
+        navigation: {
+          color: 'gray.800',
           fontWeight: 'normal',
           fontSize: '0.95rem',
           userSelect: 'none',
-        }),
-        title: (props) => ({
-          color: mode('gray.800', 'white')(props),
+          '.chakra-ui-dark &': {
+            color: 'white',
+          },
+        },
+        title: {
+          color: 'gray.800',
           fontWeight: 'bold',
           fontSize: 'lg',
-        }),
+          '.chakra-ui-dark &': {
+            color: 'white',
+          },
+        },
       },
     },
     Link: {
-      baseStyle: (props) => ({
-        color: mode('gray.800', 'whiteAlpha.800')(props),
+      baseStyle: {
+        color: 'gray.800',
         fontFamily: 'body',
         textDecoration: 'none',
         transition: 'all 0.3s ease-in-out',
         _hover: {
           textDecoration: 'none',
         },
-      }),
+        '.chakra-ui-dark &': {
+          color: 'whiteAlpha.800',
+        },
+      },
       variants: {
-        underline: (props) => ({
+        underline: {
           borderBottomColor: 'transparent',
           borderBottomWidth: '1px',
           borderBottomStyle: 'solid',
           _hover: { color: 'pink.400', borderBottomColor: 'pink.400', textDecoration: 'none' },
-        }),
-        grayhover: (props) => ({
+        },
+        grayhover: {
           textDecoration: 'none',
           borderRadius: '6px',
           backgroundColor: 'transparent',
@@ -65,43 +76,56 @@ const customTheme = extendTheme({
           '.chakra-ui-dark &': {
             _hover: { backgroundColor: 'whiteAlpha.200' },
           },
-        }),
-        cardButton: (props) => ({
+        },
+        cardButton: {
           backgroundColor: 'rgba(0, 0, 0, 0.03)',
           transition: 'all 0.2s ease-in-out',
           _hover: { backgroundColor: 'blackAlpha.200' },
           '.chakra-ui-dark &': {
             backgroundColor: 'whiteAlpha.100',
-            _hover: { backgroundColor: 'whiteAlpha.300' },
+            _hover: { backgroundColor: 'whiteAlpha.200' },
           },
-        }),
+        },
       },
     },
   },
   styles: {
-    global: (props) => ({
-      body: {
+    global: {
+      'html, body, #___gatsby': {
+        height: '100%',
         lineHeight: '1.75',
-        backgroundColor: mode('white.200', 'gitdark.normal')(props),
+        background: 'white.200',
+        '.chakra-ui-dark &': {
+          background: 'gitdark.normal',
+        },
       },
       nav: {
-        backgroundColor: mode('white', 'gitdark.normal')(props),
+        background: 'white',
+        '.chakra-ui-dark &': {
+          background: 'gitdark.normal',
+        },
       },
       '.article': {
         p: { mb: '4' },
         a: {
-          color: mode('pink.400', 'pink.300')(props),
+          color: 'pink.400',
           fontWeight: 'medium',
           borderBottomColor: 'transparent',
           borderBottomWidth: '1px',
           borderBottomStyle: 'solid',
           _hover: { color: 'pink.400', borderBottomColor: 'pink.400', textDecoration: 'none' },
+          '.chakra-ui-dark &': {
+            color: 'pink.300',
+          },
         },
       },
       '*::selection': {
-        background: mode('blackAlpha.200', 'whiteAlpha.200')(props),
+        background: 'blackAlpha.200',
+        '.chakra-ui-dark &': {
+          background: 'whiteAlpha.200',
+        },
       },
-    }),
+    },
   },
   shadows: { outline: '0 0 0 2px var(--chakra-colors-gray-500)' },
 });
