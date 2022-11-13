@@ -1,12 +1,12 @@
-module.exports = {
+export default {
   title: `solved`,
   description: `Problem solving by Hak.`,
   siteUrl: `https://solved.haklee.me/`,
   lang: `ko`,
-  repository: 'ohprettyhak/solved.haklee.me', // project repository
+  repository: "ohprettyhak/solved.haklee.me", // project repository
 
   postPerPage: 12,
-  utterances: 'ohprettyhak/solved.haklee.me', // comment repository
+  utterances: "ohprettyhak/solved.haklee.me", // comment repository
 
   auther: {
     name: `@haklee`,

@@ -1,6 +1,7 @@
-const path = require('path');
+import { CreateWebpackConfigArgs } from 'gatsby';
+import path from 'path';
 
-exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
+export const onCreateWebpackConfig = ({ getConfig, actions }: CreateWebpackConfigArgs) => {
   const output = getConfig().output || {};
 
   actions.setWebpackConfig({
