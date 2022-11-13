@@ -3,20 +3,38 @@ import metaConfig from './gatsby-meta-config';
 
 const config: GatsbyConfig = {
   siteMetadata: metaConfig,
-  graphqlTypegen: true,
+  graphqlTypegen: {
+    typesOutputPath: `src/types/gatsby-types.d.ts`,
+  },
   plugins: [
     `gatsby-plugin-no-sourcemaps`,
     {
-      resolve: '@chakra-ui/gatsby-plugin',
+      resolve: `@chakra-ui/gatsby-plugin`,
       options: {
         resetCSS: true,
         isUsingColorMode: true,
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        name: 'contents',
+        extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [
+            {
+              resolve: `gatsby-remark-images`,
+              options: {
+                maxWidth: 720,
+              },
+            },
+          ],
+        },
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `contents`,
         path: `${__dirname}/content`,
       },
     },

@@ -18,13 +18,6 @@ const customTheme = extendTheme({
     },
   },
   components: {
-    Heading: {
-      baseStyle: (props) => ({
-        color: mode('gray.800', 'white')(props),
-        fontFamily: 'body',
-        transition: 'all 0.3s ease-in-out',
-      }),
-    },
     Text: {
       baseStyle: (props) => ({
         color: mode('gray.600', 'gray.200')(props),
@@ -32,6 +25,19 @@ const customTheme = extendTheme({
         lineHeight: '1.75',
         transition: 'all 0.3s ease-in-out',
       }),
+      variants: {
+        navigation: (props) => ({
+          color: mode('gray.800', 'white')(props),
+          fontWeight: 'normal',
+          fontSize: '0.95rem',
+          userSelect: 'none',
+        }),
+        title: (props) => ({
+          color: mode('gray.800', 'white')(props),
+          fontWeight: 'bold',
+          fontSize: 'lg',
+        }),
+      },
     },
     Link: {
       baseStyle: (props) => ({
@@ -52,12 +58,21 @@ const customTheme = extendTheme({
         }),
         grayhover: (props) => ({
           textDecoration: 'none',
-          borderRadius: '4px',
+          borderRadius: '6px',
           backgroundColor: 'transparent',
           transition: 'all 0.2s ease-in-out',
           _hover: { backgroundColor: 'blackAlpha.100' },
           '.chakra-ui-dark &': {
             _hover: { backgroundColor: 'whiteAlpha.200' },
+          },
+        }),
+        cardButton: (props) => ({
+          backgroundColor: 'rgba(0, 0, 0, 0.03)',
+          transition: 'all 0.2s ease-in-out',
+          _hover: { backgroundColor: 'blackAlpha.200' },
+          '.chakra-ui-dark &': {
+            backgroundColor: 'whiteAlpha.100',
+            _hover: { backgroundColor: 'whiteAlpha.300' },
           },
         }),
       },
@@ -66,8 +81,11 @@ const customTheme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        lineHeight: 'taller',
+        lineHeight: '1.75',
         backgroundColor: mode('white.200', 'gitdark.normal')(props),
+      },
+      nav: {
+        backgroundColor: mode('white', 'gitdark.normal')(props),
       },
       '.article': {
         p: { mb: '4' },
