@@ -13,7 +13,7 @@ export default function Navigation({ curTitle, curLink, prev }: NavigationProps)
         <Box display="flex" alignItems="center" gap={1.5}>
           <Link href="/" variant="grayhover" px={1.5} py={0.5}>
             <Text as="h1" variant="navigation">
-              🧠 solved.haklee.me
+              🧠 홈
             </Text>
           </Link>
           {prev && (
