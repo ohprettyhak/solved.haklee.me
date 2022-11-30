@@ -6,42 +6,28 @@ import { FaSearch, FaArrowRight } from 'react-icons/fa';
 import Layout from '@/components/Layout';
 import Link from '@/components/Link';
 
-function level2TierElement(level: number): React.ReactNode {
-  if (level === 0)
-    return (
-      <Box as="td" w="15%" color="black" layerStyle="tableData">
-        Unrated
-      </Box>
-    );
-
-  let tier = level % 5;
-  if (tier === 0) tier = 5;
-
+function level2TierElement(level: string): React.ReactNode {
   let textColor: string = 'rgb(33, 33, 33)';
-  let rst: string = 'Unrated';
-  if (level < 6) {
-    textColor = 'rgb(173, 86, 0)';
-    rst = `B${tier}`;
-  } else if (level < 11) {
-    textColor = 'rgb(67, 95, 122)';
-    rst = `S${tier}`;
-  } else if (level < 16) {
-    textColor = 'rgb(236, 154, 0)';
-    rst = `G${tier}`;
-  } else if (level < 21) {
-    textColor = 'rgb(39, 226, 164)';
-    rst = `P${tier}`;
-  } else if (level < 26) {
-    textColor = 'rgb(0, 180, 252)';
-    rst = `D${tier}`;
-  } else {
-    textColor = 'rgb(255, 0, 98)';
-    rst = `R${tier}`;
-  }
+
+  if (level.startsWith('B')) textColor = 'rgb(173, 86, 0)';
+  else if (level.startsWith('S')) textColor = 'rgb(67, 95, 122)';
+  else if (level.startsWith('G')) textColor = 'rgb(236, 154, 0)';
+  else if (level.startsWith('P')) textColor = 'rgb(39, 226, 164)';
+  else if (level.startsWith('D')) textColor = 'rgb(0, 180, 252)';
+  else if (level.startsWith('R')) textColor = 'rgb(255, 0, 98)';
+  else textColor = 'rgb(0, 0, 0)';
 
   return (
-    <Box as="td" w="15%" color={textColor} fontSize="sm" fontWeight="medium" textAlign="center">
-      {rst}
+    <Box
+      as="td"
+      w="10%"
+      color={textColor}
+      fontSize="sm"
+      fontWeight="medium"
+      textAlign="center"
+      layerStyle={level === 'Unrated' ? 'tableData' : ''}
+    >
+      {level}
     </Box>
   );
 }
@@ -49,25 +35,35 @@ function level2TierElement(level: number): React.ReactNode {
 export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
   const { nodes } = allMdx;
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState<string | undefined>(undefined);
   const [problem, setProblem] = useState<Array<ProblemArrayType>>([]);
 
   function filter(word: string) {
+    word = word.replaceAll(' ', '').toLowerCase();
     const list: Array<ProblemArrayType> = [];
+
     nodes.map((node: ProblemArrayType) => {
-      if (node.frontmatter?.id!!.toString().includes(word)) list.push(node);
-      else if (node.frontmatter?.title!!.includes(word)) list.push(node);
-      else if (node.frontmatter?.level!!.toString().includes(word)) list.push(node);
+      if (
+        node.frontmatter?.id!!.toString().replaceAll(' ', '').toLowerCase().startsWith(word) ||
+        node.frontmatter?.title!!.replaceAll(' ', '').toLowerCase().startsWith(word) ||
+        node.frontmatter?.level!!.replaceAll(' ', '').toLowerCase().startsWith(word) ||
+        node.frontmatter?.tags!!.join('').replaceAll(' ', '').toLowerCase().includes(word)
+      )
+        list.push(node);
     });
     setProblem(list);
   }
 
   useEffect(() => {
-    const timeOutId = setTimeout(() => filter(query), 500);
+    const timeOutId = setTimeout(() => {
+      if (query !== undefined) filter(query);
+    }, 250);
     return () => clearTimeout(timeOutId);
   }, [query]);
 
-  console.log(problem);
+  useEffect(() => {
+    filter('');
+  }, []);
 
   return (
     <Layout curTitle="🔥 BOJ" curLink="/problem-solving/boj" prev={false}>
@@ -158,16 +154,16 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
                 <Box as="th" w="30%" layerStyle="tableHeader">
                   Title
                 </Box>
-                <Box as="th" w="15%" layerStyle="tableHeader">
+                <Box as="th" w="10%" layerStyle="tableHeader">
                   Level
                 </Box>
                 <Box as="th" w="15%" layerStyle="tableHeader">
                   Date
                 </Box>
-                <Box as="th" w="15%" layerStyle="tableHeader">
+                <Box as="th" w="10%" layerStyle="tableHeader">
                   Language
                 </Box>
-                <Box as="th" w="15%" layerStyle="tableHeader">
+                <Box as="th" w="25%" layerStyle="tableHeader">
                   Tag
                 </Box>
               </Box>
@@ -186,10 +182,10 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
                     <Box as="td" w="15%" layerStyle="tableData">
                       {node.frontmatter?.date}
                     </Box>
-                    <Box as="td" w="15%" layerStyle="tableData">
+                    <Box as="td" w="10%" layerStyle="tableData">
                       {node.frontmatter?.language}
                     </Box>
-                    <Box as="td" w="15%" layerStyle="tableData">
+                    <Box as="td" w="25%" layerStyle="tableData">
                       {node.frontmatter?.tags?.join(', ')}
                     </Box>
                   </Box>
@@ -234,7 +230,7 @@ interface ProblemArrayType {
     readonly id: number | null;
     readonly title: string | null;
     readonly tags: ReadonlyArray<string | null> | null;
-    readonly level: number | null;
+    readonly level: string | null;
     readonly language: ReadonlyArray<string | null> | null;
     readonly date: string | null;
   } | null;

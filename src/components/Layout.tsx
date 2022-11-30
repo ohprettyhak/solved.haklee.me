@@ -7,7 +7,6 @@ import 'pretendard/dist/web/static/pretendard.css';
 import '@/styles/jetbrains-mono.css';
 
 export default function Layout({ children, title, description, curTitle, curLink, prev }: LayoutProps) {
-  console.log(children, title, description);
   return (
     <ChakraProvider resetCSS={true} theme={customTheme}>
       <Navigation curTitle={curTitle} curLink={curLink} prev={prev} />

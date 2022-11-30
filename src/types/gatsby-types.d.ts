@@ -890,7 +890,7 @@ type MdxFrontmatter = {
   readonly date: Maybe<Scalars['Date']>;
   readonly id: Maybe<Scalars['Int']>;
   readonly language: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly level: Maybe<Scalars['Int']>;
+  readonly level: Maybe<Scalars['String']>;
   readonly tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly title: Maybe<Scalars['String']>;
 };
@@ -918,7 +918,7 @@ type MdxFrontmatterFilterInput = {
   readonly date: InputMaybe<DateQueryOperatorInput>;
   readonly id: InputMaybe<IntQueryOperatorInput>;
   readonly language: InputMaybe<StringQueryOperatorInput>;
-  readonly level: InputMaybe<IntQueryOperatorInput>;
+  readonly level: InputMaybe<StringQueryOperatorInput>;
   readonly tags: InputMaybe<StringQueryOperatorInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
 };
@@ -2146,7 +2146,7 @@ type postQuery = { readonly mdx: { readonly frontmatter: { readonly id: number |
 type postsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type postsQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly id: number | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly level: number | null, readonly language: ReadonlyArray<string | null> | null, readonly date: string | null } | null }> } };
+type postsQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly id: number | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly level: string | null, readonly language: ReadonlyArray<string | null> | null, readonly date: string | null } | null }> } };
 
 
 }
