@@ -134,18 +134,17 @@ const customTheme = extendTheme({
   },
   styles: {
     global: {
-      'html, body, #___gatsby': {
-        height: '100%',
-        lineHeight: '1.75',
-        background: 'white.200',
-        '.chakra-ui-dark &': {
-          background: 'gitdark.normal',
-        },
+      body: {
+        bg: 'white',
+      },
+      '.chakra-ui-dark': {
+        bg: 'gitdark.normal',
       },
       nav: {
-        background: 'white',
+        zIndex: '1',
+        bg: 'white',
         '.chakra-ui-dark &': {
-          background: 'gitdark.normal',
+          bg: 'gitdark.normal',
         },
       },
       '.article': {

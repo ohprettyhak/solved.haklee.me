@@ -64,3 +64,4 @@ interface NavigationProps {
   curLink?: string;
   prev?: boolean;
 }
+

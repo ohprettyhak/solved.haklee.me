@@ -2146,7 +2146,7 @@ type postQuery = { readonly mdx: { readonly frontmatter: { readonly id: number |
 type postsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type postsQuery = { readonly allMdx: { readonly edges: ReadonlyArray<{ readonly node: { readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly id: number | null, readonly title: string | null, readonly date: string | null, readonly language: ReadonlyArray<string | null> | null, readonly tags: ReadonlyArray<string | null> | null, readonly level: number | null } | null } }> } };
+type postsQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly id: number | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly level: number | null, readonly language: ReadonlyArray<string | null> | null, readonly date: string | null } | null }> } };
 
 
 }

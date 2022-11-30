@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import { Box, Table, Input } from '@chakra-ui/react';
+import { FaSearch, FaArrowRight } from 'react-icons/fa';
 
 import Layout from '@/components/Layout';
 import Link from '@/components/Link';
@@ -16,8 +17,8 @@ function level2TierElement(level: number): React.ReactNode {
   let tier = level % 5;
   if (tier === 0) tier = 5;
 
-  let textColor = 'rgb(33, 33, 33)';
-  let rst = 'Unrated';
+  let textColor: string = 'rgb(33, 33, 33)';
+  let rst: string = 'Unrated';
   if (level < 6) {
     textColor = 'rgb(173, 86, 0)';
     rst = `B${tier}`;
@@ -46,37 +47,91 @@ function level2TierElement(level: number): React.ReactNode {
 }
 
 export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
-  const { edges } = allMdx;
+  const { nodes } = allMdx;
 
   const [query, setQuery] = useState('');
+  const [problem, setProblem] = useState<Array<ProblemArrayType>>([]);
 
-  function filter(word: string) {}
+  function filter(word: string) {
+    const list: Array<ProblemArrayType> = [];
+    nodes.map((node: ProblemArrayType) => {
+      if (node.frontmatter?.id!!.toString().includes(word)) list.push(node);
+      else if (node.frontmatter?.title!!.includes(word)) list.push(node);
+      else if (node.frontmatter?.level!!.toString().includes(word)) list.push(node);
+    });
+    setProblem(list);
+  }
+
+  useEffect(() => {
+    const timeOutId = setTimeout(() => filter(query), 500);
+    return () => clearTimeout(timeOutId);
+  }, [query]);
+
+  console.log(problem);
 
   return (
     <Layout curTitle="🔥 BOJ" curLink="/problem-solving/boj" prev={false}>
-      <Box as="section" mt={12}>
+      <Box as="section" my={12}>
         <Box position="relative" display="flex" h={12} boxShadow="base" rounded="lg">
           <Input
-            display="relative"
             w="100%"
             h="100%"
-            padding="0 50px"
+            px={12}
             margin="0"
+            fontWeight="medium"
             outline="none"
             borderRadius="lg"
             sx={{
               borderColor: 'transparent',
               borderWidth: '1px',
+              '::placeholder': { color: 'blackAlpha.400', fontFamly: 'body' },
               ':hover': { borderColor: 'transparent' },
               ':focus': { boxShadow: 'lg', borderColor: 'blackAlpha.100' },
               '.chakra-ui-dark &': {
                 borderColor: 'whiteAlpha.400',
                 borderWidth: '1px',
+                '::placeholder': { color: 'whiteAlpha.400' },
                 ':hover': { borderColor: 'whiteAlpha.600' },
                 ':focus': { boxShadow: 'lg', borderColor: 'whiteAlpha.600' },
               },
             }}
+            placeholder="Search problems... (ID, TITLE, ..)"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.target.value)}
           />
+          <Box
+            position="absolute"
+            display="flex"
+            top="0"
+            bottom="0"
+            mx={4}
+            alignItems="center"
+            sx={{
+              svg: { width: '16px', height: '16px', color: 'blackAlpha.400' },
+              '.chakra-ui-dark &': {
+                svg: { color: 'whiteAlpha.400' },
+              },
+            }}
+          >
+            <FaSearch />
+          </Box>
+          <Box
+            position="absolute"
+            display="flex"
+            top="0"
+            bottom="0"
+            right="0"
+            mx={4}
+            alignItems="center"
+            cursor="pointer"
+            sx={{
+              svg: { width: '16px', height: '16px', color: 'blackAlpha.400' },
+              '.chakra-ui-dark &': {
+                svg: { color: 'whiteAlpha.400' },
+              },
+            }}
+          >
+            <FaArrowRight />
+          </Box>
         </Box>
         <Box
           mt={6}
@@ -84,6 +139,7 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
           px={5}
           py={3}
           rounded="lg"
+          overflowX="auto"
           sx={{
             borderColor: 'transparent',
             borderWidth: '1px',
@@ -93,7 +149,7 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
             },
           }}
         >
-          <Table size="sm">
+          <Table size="sm" minWidth="720px">
             <Box as="thead" w="100%" borderBottomWidth="1px" borderColor="gray.100">
               <Box as="tr" w="100%">
                 <Box as="th" w="10%" layerStyle="tableHeader">
@@ -117,26 +173,27 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
               </Box>
             </Box>
             <Box as="tbody" w="100%">
-              {edges.map(({ node }) => (
-                <Box as="tr" display="table-row" w="100%" borderTop="8px solid transparent">
-                  <Box as="td" w="10%" layerStyle="tableData">
-                    <Link href={`/problem-solving/boj/${node.frontmatter?.id}`}>{node.frontmatter?.id}</Link>
+              {problem.length !== 0 &&
+                problem.map((node: ProblemArrayType) => (
+                  <Box key={node.id} as="tr" display="table-row" w="100%" borderTop="8px solid transparent">
+                    <Box as="td" w="10%" layerStyle="tableData">
+                      <Link href={`/problem-solving/boj/${node.frontmatter?.id}`}>{node.frontmatter?.id}</Link>
+                    </Box>
+                    <Box as="td" w="30%" layerStyle="tableData">
+                      <Link href={`/problem-solving/boj/${node.frontmatter?.id}`}>{node.frontmatter?.title}</Link>
+                    </Box>
+                    {level2TierElement(node.frontmatter?.level!!)}
+                    <Box as="td" w="15%" layerStyle="tableData">
+                      {node.frontmatter?.date}
+                    </Box>
+                    <Box as="td" w="15%" layerStyle="tableData">
+                      {node.frontmatter?.language}
+                    </Box>
+                    <Box as="td" w="15%" layerStyle="tableData">
+                      {node.frontmatter?.tags?.join(', ')}
+                    </Box>
                   </Box>
-                  <Box as="td" w="30%" layerStyle="tableData">
-                    <Link href={`/problem-solving/boj/${node.frontmatter?.id}`}>{node.frontmatter?.title}</Link>
-                  </Box>
-                  {level2TierElement(node.frontmatter?.level!!)}
-                  <Box as="td" w="15%" layerStyle="tableData">
-                    {node.frontmatter?.date}
-                  </Box>
-                  <Box as="td" w="15%" layerStyle="tableData">
-                    {node.frontmatter?.language}
-                  </Box>
-                  <Box as="td" w="15%" layerStyle="tableData">
-                    {node.frontmatter?.tags?.join(', ')}
-                  </Box>
-                </Box>
-              ))}
+                ))}
             </Box>
           </Table>
         </Box>
@@ -148,20 +205,18 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
 export const GetPostsQuery = graphql`
   query posts {
     allMdx(filter: { frontmatter: { category: { eq: "boj" } } }, sort: { frontmatter: { id: ASC } }) {
-      edges {
-        node {
+      nodes {
+        fields {
+          slug
+        }
+        id
+        frontmatter {
           id
-          fields {
-            slug
-          }
-          frontmatter {
-            id
-            title
-            date(formatString: "yyyy/MM/DD")
-            language
-            tags
-            level
-          }
+          title
+          tags
+          level
+          language
+          date(formatString: "yyyy/MM/DD")
         }
       }
     }
@@ -170,4 +225,17 @@ export const GetPostsQuery = graphql`
 
 interface BOJPageProps {
   data: Queries.postsQuery;
+}
+
+interface ProblemArrayType {
+  readonly id: string;
+  readonly fields: { readonly slug: string | null } | null;
+  readonly frontmatter: {
+    readonly id: number | null;
+    readonly title: string | null;
+    readonly tags: ReadonlyArray<string | null> | null;
+    readonly level: number | null;
+    readonly language: ReadonlyArray<string | null> | null;
+    readonly date: string | null;
+  } | null;
 }
