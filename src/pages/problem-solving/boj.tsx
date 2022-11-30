@@ -150,7 +150,7 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
           }}
         >
           <Table size="sm" minWidth="720px">
-            <Box as="thead" w="100%" borderBottomWidth="1px" borderColor="gray.100">
+            <Box as="thead" w="100%">
               <Box as="tr" w="100%">
                 <Box as="th" w="10%" layerStyle="tableHeader">
                   ID
