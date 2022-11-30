@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 
 import Link from '@/components/Link';
 
-export default function Navigation({ curTitle, curLink, prev }: NavigationProps) {
+export default function Navigation({ title, prevTitle, prevLink }: NavigationProps) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -12,22 +12,26 @@ export default function Navigation({ curTitle, curLink, prev }: NavigationProps)
       <Container display="flex" maxWidth="100%" h={12} alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center" gap={1.5}>
           <Link href="/" variant="grayhover" px={1.5} py={0.5}>
-            <Text as="h1" variant="navigation">
+            <Text as="h2" variant="navigation">
               🧠 홈
             </Text>
           </Link>
-          {prev && (
+          {prevTitle && prevLink && (
             <>
               <Text>/</Text>
-              <Text>..</Text>
+              <Link href={prevLink} variant="grayhover" px={1.5} py={0.5}>
+                <Text as="h2" variant="navigation">
+                  {prevTitle}
+                </Text>
+              </Link>
             </>
           )}
-          {curTitle && curLink && (
+          {title && (
             <>
               <Text>/</Text>
-              <Link href={curLink} variant="grayhover" px={1.5} py={0.5}>
-                <Text as="h1" variant="navigation">
-                  {curTitle}
+              <Link href="" variant="grayhover" px={1.5} py={0.5}>
+                <Text as="h2" variant="navigation">
+                  {title}
                 </Text>
               </Link>
             </>
@@ -60,8 +64,7 @@ export default function Navigation({ curTitle, curLink, prev }: NavigationProps)
 }
 
 interface NavigationProps {
-  curTitle?: string;
-  curLink?: string;
-  prev?: boolean;
+  title?: string;
+  prevTitle?: string;
+  prevLink?: string;
 }
-

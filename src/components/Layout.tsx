@@ -6,10 +6,10 @@ import customTheme from '@/config/theme';
 import 'pretendard/dist/web/static/pretendard.css';
 import '@/styles/jetbrains-mono.css';
 
-export default function Layout({ children, title, description, curTitle, curLink, prev }: LayoutProps) {
+export default function Layout({ children, title, description, prevTitle, prevLink }: LayoutProps) {
   return (
     <ChakraProvider resetCSS={true} theme={customTheme}>
-      <Navigation curTitle={curTitle} curLink={curLink} prev={prev} />
+      <Navigation title={title} prevTitle={prevTitle} prevLink={prevLink} />
       <Container maxW="container.lg" pt={12}>
         <Box as="main">{children}</Box>
       </Container>
@@ -21,7 +21,6 @@ interface LayoutProps {
   children: React.ReactNode;
   title?: string;
   description?: string;
-  curTitle?: string;
-  curLink?: string;
-  prev?: boolean;
+  prevTitle?: string;
+  prevLink?: string;
 }

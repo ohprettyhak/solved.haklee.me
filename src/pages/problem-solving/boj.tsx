@@ -66,7 +66,7 @@ export default function BOJPage({ data: { allMdx } }: BOJPageProps) {
   }, []);
 
   return (
-    <Layout curTitle="🔥 BOJ" curLink="/problem-solving/boj" prev={false}>
+    <Layout title="🔥 BOJ">
       <Box as="section" my={12}>
         <Box position="relative" display="flex" h={12} boxShadow="base" rounded="lg">
           <Input

@@ -5,7 +5,7 @@ import Layout from '@/components/Layout';
 
 export default function ProblemSolvingTemplate({ data: { mdx }, children }: ProblemSolvingTemplateProps) {
   return (
-    <Layout>
+    <Layout title={mdx!!.frontmatter!!.id?.toString()} prevTitle="🔥 BOJ" prevLink="/problem-solving/boj/">
       <h1>{mdx!!.frontmatter!!.id}</h1>
       <h1>{mdx!!.frontmatter!!.title}</h1>
       {children}

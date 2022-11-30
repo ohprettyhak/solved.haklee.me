@@ -5,7 +5,7 @@ import Layout from '@/components/Layout';
 
 export default function AboutPage() {
   return (
-    <Layout curTitle="정보" curLink="/about" prev={false}>
+    <Layout title="정보">
       <Box as="section" mt={12}></Box>
     </Layout>
   );
