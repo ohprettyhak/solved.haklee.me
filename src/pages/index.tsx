@@ -11,7 +11,7 @@ export default function IndexPage() {
         <Text as="h2" variant="title">
           🔥 Problem Solving
         </Text>
-        <Text mt={1}>Solving Algorithms Problems in BOJ and Codeforces</Text>
+        <Text mt={1}>알고리즘 트레이닝 사이트에서 풀이한 문제를 정리합니다</Text>
         <Grid
           gridTemplateColumns={{
             base: '100%',
@@ -23,15 +23,15 @@ export default function IndexPage() {
           placeItems="start"
           justifyContent="space-around"
         >
-          <CardButton href="/problem-solving/boj" title="BOJ" description="solved.ac Gold II 1390" />
+          <CardButton href="/problem-solving/boj" title="BOJ" description="solved.ac Gold I 1421" />
           <CardButton href="/problem-solving/codeforces" title="Codeforces" description="max. newbie, 368" />
         </Grid>
       </Box>
       <Box as="section" mt={12}>
         <Text as="h2" variant="title">
-          📐 Maths
+          📐 Mathematics
         </Text>
-        <Text mt={1}>Needed for CS</Text>
+        <Text mt={1}>컴퓨터 과학에 필요한 수학 지식을 정리합니다</Text>
         <Grid></Grid>
       </Box>
     </Layout>

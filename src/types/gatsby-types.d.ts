@@ -888,11 +888,10 @@ type MdxFilterListInput = {
 type MdxFrontmatter = {
   readonly category: Maybe<Scalars['String']>;
   readonly date: Maybe<Scalars['Date']>;
-  readonly draft: Maybe<Scalars['Boolean']>;
+  readonly id: Maybe<Scalars['Int']>;
   readonly language: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly slug: Maybe<Scalars['String']>;
+  readonly level: Maybe<Scalars['Int']>;
   readonly tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly template: Maybe<Scalars['String']>;
   readonly title: Maybe<Scalars['String']>;
 };
 
@@ -907,33 +906,30 @@ type MdxFrontmatter_dateArgs = {
 type MdxFrontmatterFieldSelector = {
   readonly category: InputMaybe<FieldSelectorEnum>;
   readonly date: InputMaybe<FieldSelectorEnum>;
-  readonly draft: InputMaybe<FieldSelectorEnum>;
+  readonly id: InputMaybe<FieldSelectorEnum>;
   readonly language: InputMaybe<FieldSelectorEnum>;
-  readonly slug: InputMaybe<FieldSelectorEnum>;
+  readonly level: InputMaybe<FieldSelectorEnum>;
   readonly tags: InputMaybe<FieldSelectorEnum>;
-  readonly template: InputMaybe<FieldSelectorEnum>;
   readonly title: InputMaybe<FieldSelectorEnum>;
 };
 
 type MdxFrontmatterFilterInput = {
   readonly category: InputMaybe<StringQueryOperatorInput>;
   readonly date: InputMaybe<DateQueryOperatorInput>;
-  readonly draft: InputMaybe<BooleanQueryOperatorInput>;
+  readonly id: InputMaybe<IntQueryOperatorInput>;
   readonly language: InputMaybe<StringQueryOperatorInput>;
-  readonly slug: InputMaybe<StringQueryOperatorInput>;
+  readonly level: InputMaybe<IntQueryOperatorInput>;
   readonly tags: InputMaybe<StringQueryOperatorInput>;
-  readonly template: InputMaybe<StringQueryOperatorInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
 };
 
 type MdxFrontmatterSortInput = {
   readonly category: InputMaybe<SortOrderEnum>;
   readonly date: InputMaybe<SortOrderEnum>;
-  readonly draft: InputMaybe<SortOrderEnum>;
+  readonly id: InputMaybe<SortOrderEnum>;
   readonly language: InputMaybe<SortOrderEnum>;
-  readonly slug: InputMaybe<SortOrderEnum>;
+  readonly level: InputMaybe<SortOrderEnum>;
   readonly tags: InputMaybe<SortOrderEnum>;
-  readonly template: InputMaybe<SortOrderEnum>;
   readonly title: InputMaybe<SortOrderEnum>;
 };
 
@@ -2145,7 +2141,12 @@ type postQueryVariables = Exact<{
 }>;
 
 
-type postQuery = { readonly mdx: { readonly frontmatter: { readonly title: string | null } | null } | null };
+type postQuery = { readonly mdx: { readonly frontmatter: { readonly id: number | null, readonly title: string | null } | null } | null };
+
+type postsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type postsQuery = { readonly allMdx: { readonly edges: ReadonlyArray<{ readonly node: { readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly id: number | null, readonly title: string | null, readonly date: string | null, readonly language: ReadonlyArray<string | null> | null, readonly tags: ReadonlyArray<string | null> | null, readonly level: number | null } | null } }> } };
 
 
 }

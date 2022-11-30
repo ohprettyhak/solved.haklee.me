@@ -6,6 +6,8 @@ const customTheme = extendTheme({
     useSystemColorMode: true,
   },
   fonts: {
+    heading:
+      '-apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Pretendard, Roboto, Noto Sans KR, Segoe UI, Malgun Gothic, sans-serif',
     body: '-apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Pretendard, Roboto, Noto Sans KR, Segoe UI, Malgun Gothic, sans-serif',
     mono: 'JetBrains Mono, SFMono-Regular, Pretendard, Menlo, Consolas, PT Mono, Liberation Mono, Courier, monospace',
   },
@@ -89,6 +91,47 @@ const customTheme = extendTheme({
       },
     },
   },
+  layerStyles: {
+    tableHeader: {
+      display: 'table-cell',
+      color: 'gray.800',
+      fontWeight: 'extrabold',
+      fontSize: 'xs',
+      textTransform: 'uppercase',
+      textAlign: 'center',
+      letterSpacing: 'wider',
+      '.chakra-ui-dark &': {
+        color: 'white',
+      },
+    },
+    tableData: {
+      display: 'table-cell',
+      color: 'gray.600',
+      fontSize: 'sm',
+      fontWeight: 'medium',
+      textAlign: 'center',
+      '.chakra-ui-dark &': {
+        color: 'whiteAlpha.800',
+      },
+      a: {
+        color: 'gray.600',
+        borderBottomWidth: 'none',
+        borderBottomColor: 'transparent',
+        transition: 'all 0.1s ease-in-out',
+        ':hover': {
+          borderBottomWidth: '1px',
+          borderBottomColor: 'gray.600',
+        },
+        '.chakra-ui-dark &': {
+          color: 'whiteAlpha.800',
+          ':hover': {
+            borderBottomWidth: '1px',
+            borderBottomColor: 'whiteAlpha.800',
+          },
+        },
+      },
+    },
+  },
   styles: {
     global: {
       'html, body, #___gatsby': {
@@ -123,6 +166,14 @@ const customTheme = extendTheme({
         background: 'blackAlpha.200',
         '.chakra-ui-dark &': {
           background: 'whiteAlpha.200',
+        },
+      },
+      input: {
+        borderColor: 'gray.400',
+        ':focus': { borderColor: 'gray.400' },
+        '.chakra-ui-dark &': {
+          borderColor: 'gray.400',
+          ':focus': { borderColor: 'whiteAlpha.400' },
         },
       },
     },

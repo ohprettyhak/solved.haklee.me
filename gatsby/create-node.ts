@@ -4,8 +4,8 @@ export default async function onCreateNode({ node, getNode, actions }: any) {
   let slug;
 
   if (node.internal.type === 'Mdx') {
-    if (node.frontmatter.category === 'boj') slug = `/problem-solving/boj/${node.frontmatter.slug}/`;
-    else if (node.frontmatter.category === 'codeforces') slug = `/problem-solving/codeforces/${node.frontmatter.slug}/`;
+    if (node.frontmatter.category === 'boj') slug = `/problem-solving/boj/${node.frontmatter.id}/`;
+    else if (node.frontmatter.category === 'codeforces') slug = `/problem-solving/codeforces/${node.frontmatter.id}/`;
     else slug = `${node.frontmatter.slug}/`;
 
     actions.createNodeField({ node, name: `slug`, value: slug });

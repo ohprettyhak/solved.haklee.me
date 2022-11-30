@@ -1,7 +1,7 @@
-const path = require('path');
-const _ = require('lodash');
+import path from 'path';
+import _ from 'lodash';
 
-const postTemplate = path.resolve(__dirname, '../src/templates/PostTemplate.tsx');
+const ProblemSolvingTemplate = path.resolve(__dirname, '../src/templates/ProblemSolving.tsx');
 
 const query = `
   {
@@ -23,10 +23,11 @@ export default async function createPages({ graphql, actions }: any) {
   const response = await graphql(query);
   if (response.errors) throw new Error(response.errors);
   const { posts } = response.data;
+
   posts.nodes.forEach((nodes: any) => {
     actions.createPage({
       path: nodes.fields.slug,
-      component: `${postTemplate}?__contentFilePath=${nodes.internal.contentFilePath}`,
+      component: `${ProblemSolvingTemplate}?__contentFilePath=${nodes.internal.contentFilePath}`,
       context: { id: nodes.id },
     });
   });
