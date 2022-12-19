@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { Box } from '@chakra-ui/react';
 
 import Layout from '@/components/Layout';
 
@@ -8,7 +9,7 @@ export default function ProblemSolvingTemplate({ data: { mdx }, children }: Prob
     <Layout title={mdx!!.frontmatter!!.id?.toString()} prevTitle="🔥 BOJ" prevLink="/problem-solving/boj/">
       <h1>{mdx!!.frontmatter!!.id}</h1>
       <h1>{mdx!!.frontmatter!!.title}</h1>
-      {children}
+      <Box as="article">{children}</Box>
     </Layout>
   );
 }

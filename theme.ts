@@ -147,7 +147,7 @@ const customTheme = extendTheme({
           bg: 'gitdark.normal',
         },
       },
-      '.article': {
+      article: {
         p: { mb: '4' },
         a: {
           color: 'pink.400',
